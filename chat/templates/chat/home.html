@@ -1,0 +1,21 @@
+{% extends 'chat/layout.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Create Room</h5>
+          <a href="{% url 'create-room' %}" class="btn btn-primary">Create</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Join Room</h5>
+          <a href="{% url 'join-room' %}" class="btn btn-primary">Join</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

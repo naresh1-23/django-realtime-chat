@@ -1,0 +1,10 @@
+.logging{
+    float: right;
+    padding:0 25px 0 25px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+}
+.navbar-brand:hover{
+    color: blue;
+}

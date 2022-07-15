@@ -1,0 +1,17 @@
+{% extends 'chat/layout.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="submit_btn">
+            <button class="btn btn-primary submit" type="submit">Join</button>
+        </div>
+    </form>
+</div>
+{% else %}
+<h2>First login</h2>
+{% endif %}
+{% endblock content %}

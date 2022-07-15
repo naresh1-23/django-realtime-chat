@@ -1,0 +1,122 @@
+{% extends 'chat/layout.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+body{
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 20px rgb(0, 0, 0, 0.4);
+}
+.header h1{
+    padding: 15px;
+}
+.body{
+    flex: 1;
+    color: white;
+    background-color: rgb(231, 142, 142);
+    padding: 20px 30px;
+    height: 50%;
+    overflow: scroll;
+}
+.message{
+  background-color: dodgerblue;
+  padding: 10px;
+  color: white;
+  width: fit-content;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+.user_message{
+  margin-left: auto;
+  background-color: white;
+  color: black;
+}
+.username{
+  margin-left: 95%;
+}
+.footer form{
+  display: flex;
+}
+form input{
+  flex: 1;
+  height: 40px;
+  border: none;
+  outline: none;
+  padding-left: 5px;
+  font-size: 16px;
+}
+form button{
+  width: 100px;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: dodgerblue;
+  color: white;
+  cursor: pointer;
+}
+
+form button:hover{
+  background-color: blue;
+  transition: 0.2s ease;
+}
+
+.messages{
+  width: 100%;
+}
+</style>
+<div class="container">
+  <div class="header">
+    <h1>{{ room.room_number }}</h1>
+  </div>
+  <div class="body" id="chat-messages">
+    {% for chat in chats %}
+    {% if chat.author == user %}
+
+    <p class="username">{{chat.author}}</p>
+    <p id="refresh" class="message user_message">{{ chat }}</p>
+    {% else %}
+    <p>{{ chat.author }}</p>
+    <p id="refresh" class="message">{{ chat }}</p>
+    {% endif %}
+    {% endfor %}
+    
+  </div>
+  <div class="footer">
+    <form action="" method="post">
+      {% csrf_token %}
+      <div class="messages">
+      {{form|crispy}}
+      <button type="submit">Send</button>
+    </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+
+function scrollToBottom(){
+  const  objectdiv = document.querySelector('#chat-messages');
+  objectdiv.scrollTop = objectdiv.scrollHeight;
+}
+function doRefresh() {
+  setInterval(function(){
+    $("#chat-messages").load("#chat-messages");
+    document.getElementById("chat-messages").innerHTML = Math.random();
+  }, 1000);
+    
+}
+scrollToBottom();
+doRefresh();
+
+
+
+
+</script>
+{% endblock content %}
